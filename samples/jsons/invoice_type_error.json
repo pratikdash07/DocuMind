@@ -1,0 +1,6 @@
+{
+  "order_id": "should-be-int",
+  "customer": "MegaCorp",
+  "amount": 2500,
+  "items": ["widget"]
+}

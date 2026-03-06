@@ -1,0 +1,7 @@
+{
+  "order_id": 999,
+  "customer": "ScamCo",
+  "amount": 1000000,
+  "items": ["fake_item"],
+  "note": "This looks suspicious and unauthorized."
+}

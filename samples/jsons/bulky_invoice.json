@@ -1,0 +1,12 @@
+{
+  "order_id": 10001,
+  "customer": "Acme Global Holdings",
+  "amount": 999999.99,
+  "items": [
+    "server_rack_1", "server_rack_2", "enterprise_license_1", "support_plan_gold",
+    "on_site_consulting", "cloud_migration", "data_backup", "disaster_recovery",
+    "regulatory_compliance_audit", "gdpr_assessment", "fda_submission_support",
+    "custom_integration_1", "custom_integration_2", "custom_integration_3"
+  ],
+  "note": "This invoice covers all enterprise services for the year. Please ensure GDPR and FDA compliance are included."
+}

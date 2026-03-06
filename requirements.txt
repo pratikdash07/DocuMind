@@ -1,0 +1,10 @@
+fastapi
+langchain
+langchain-google-genai
+redis
+pypdf2
+python-multipart
+uvicorn
+faker
+python-dotenv
+requests

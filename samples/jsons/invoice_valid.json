@@ -1,0 +1,6 @@
+{
+  "order_id": 789,
+  "customer": "MegaCorp",
+  "amount": 25000.50,
+  "items": ["widget", "gadget"]
+}

@@ -1,0 +1,6 @@
+{
+  "order_id": 123,
+  "customer": "Alice",
+  "amount": 12050.0,
+  "items": ["item1", "item2"]
+}
