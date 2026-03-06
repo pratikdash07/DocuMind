@@ -1,98 +1,263 @@
 # Flowbit Multi-Agent Document Processing System
 
-## Overview
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-green)
+![React](https://img.shields.io/badge/React-Frontend-61DAFB)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-Flowbit is an AI-powered, multi-format document processing system that classifies, extracts, and routes business documents such as Emails, JSON files, and PDFs. It features a modular multi-agent architecture, LLM-enhanced intelligence, automated action routing, and full auditability.
+An AI-powered **multi-agent document processing system** that classifies, extracts, and routes business documents using **LLM intelligence and automated workflows**.
 
-## Features
+---
 
-- Multi-format document classification (Email, JSON, PDF)
-- Business intent detection (RFQ, Complaint, Invoice, Regulation, Fraud Risk)
-- Specialized agents for Email, JSON, and PDF
-- Automated action routing with retry logic
-- Shared memory store for audit and traceability
-- Modern React-based frontend for file upload and result display
-- Dockerized backend and frontend for deployment
+# Table of Contents
 
-## Tech Stack
+* Overview
+* Features
+* Tech Stack
+* Gemini API Integration
+* Project Structure
+* System Architecture
+* Frontend
+* Backend
+* Usage
+* Dockerization
+* Architecture Diagram
+* How It Works
+* Sample Screenshots
+* License
+* Author
 
-- **Backend:** Python, FastAPI, LangChain, Redis , Google Gemini API
-- **Frontend:** React, Vite (custom UI)
-- **Containerization:** Docker
+---
 
-## Gemini API Integration
+# Overview
 
-This project uses the [Google Gemini API](https://ai.google.dev/gemini-api/docs) to power large language model (LLM) capabilities for document classification and intent detection. The backend integrates Gemini via the official Python SDK, using the `gemini-2.0-flash` model for fast, accurate results.
+Flowbit is an **AI-powered, multi-format document processing system** that classifies, extracts, and routes business documents such as Emails, JSON files, and PDFs.
 
-**How it's used:**
-- The Classifier Agent sends document content to Gemini using a prompt with few-shot examples.
-- Gemini returns the predicted intent or label, which is then used to route the document to the appropriate specialized agent.
-- This enables robust, context-aware classification for Emails, JSON, and PDF documents.
+It features a **modular multi-agent architecture**, **LLM-enhanced intelligence**, **automated action routing**, and **full auditability**.
 
-**Example Gemini API usage in Python:**
+---
+
+# Features
+
+* Multi-format document classification (Email, JSON, PDF)
+* Business intent detection (RFQ, Complaint, Invoice, Regulation, Fraud Risk)
+* Specialized agents for Email, JSON, and PDF
+* Automated action routing with retry logic
+* Shared memory store for audit and traceability
+* Modern React-based frontend for file upload and result display
+* Dockerized backend and frontend for deployment
+
+---
+
+# Tech Stack
+
+**Backend**
+
+* Python
+* FastAPI
+* LangChain
+* Redis
+* Google Gemini API
+
+**Frontend**
+
+* React
+* Vite (custom UI)
+
+**Containerization**
+
+* Docker
+
+---
+
+# Gemini API Integration
+
+This project uses the **Google Gemini API** to power large language model (LLM) capabilities for document classification and intent detection.
+
+Model used:
+
+```
+gemini-2.0-flash
+```
+
+### How it's used
+
+1. The **Classifier Agent** sends document content to Gemini using a prompt with few-shot examples.
+2. Gemini returns the predicted intent or label.
+3. The system routes the document to the appropriate specialized agent.
+
+This enables **context-aware classification** for:
+
+* Emails
+* JSON documents
+* PDFs
+
+### Example Gemini API usage
+
+```python
 from google import genai
 
 client = genai.Client(api_key="YOUR_API_KEY")
+
 response = client.models.generate_content(
-model="gemini-2.0-flash",
-contents="Classify this document: ...",
+    model="gemini-2.0-flash",
+    contents="Classify this document: ..."
 )
+
 print(response.text)
+```
 
-For more, see the [Gemini API docs](https://ai.google.dev/gemini-api/docs).
+For more information see:
 
+https://ai.google.dev/gemini-api/docs
 
-## Project Structure
+---
+
+# Project Structure
+
+```
 multi-agent-system/
 ├── agents/
 ├── core/
 ├── frontend/
-│ ├── public/
-│ ├── src/
-│ ├── package.json
+│   ├── public/
+│   ├── src/
+│   ├── package.json
 ├── main.py
 ├── requirements.txt
 ├── .env
 └── README.md
+```
 
-## Frontend
+---
 
-The frontend is a React application that provides a clean, modern UI for uploading documents and displaying detailed processing results, including classification, urgency, tone, and action routing outcomes.
+# System Architecture
 
-- Tab title and favicon are customized for project branding.
-- Displays all results returned by the backend: classification, processing results, agent processing, action router responses, and full trace logs.
+Flowbit follows a **modular multi-agent architecture**.
+
+Documents are first classified and then routed to specialized agents that perform domain-specific extraction.
+
+Each agent produces structured results that are passed to the **Action Router**, which triggers automated workflows and logs events.
+
+### Architectural Principles
+
+* Modular **agent-based processing**
+* **LLM-powered classification**
+* Shared **memory store for traceability**
+* **Scalable API-based architecture**
+* Complete **audit logging**
+
+---
+
+# Frontend
+
+The frontend is a **React application** providing a clean UI for uploading documents and displaying results.
+
+Displayed results include:
+
+* Document classification
+* Urgency detection
+* Tone analysis
+* Extracted information
+* Action router decisions
+* Full trace logs
+
+Additional features:
+
+* Custom favicon and branding
+* Recruiter-friendly UI
+* Clear visualization of multi-agent pipeline results
 
 ### Running the Frontend
 
-1. Navigate to the `frontend/` directory.
-2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
-4. Access the UI at [http://localhost:5173/demo](http://localhost:5173/demo)
+1. Navigate to the frontend folder
 
-## Backend
+```
+cd frontend
+```
 
-The backend is a FastAPI server that runs the multi-agent pipeline.
+2. Install dependencies
+
+```
+npm install
+```
+
+3. Run development server
+
+```
+npm run dev
+```
+
+4. Open the UI
+
+```
+http://localhost:5173/demo
+```
+
+---
+
+# Backend
+
+The backend is built using **FastAPI** and runs the entire multi-agent pipeline.
 
 ### Running the Backend
 
-1. Create and activate a Python virtual environment.
-2. Install dependencies: `pip install -r requirements.txt`
-3. Set environment variables in `.env`.
-4. Start the backend: `uvicorn main:app --reload`
+Create a virtual environment
 
-## Usage
+```
+python -m venv venv
+```
 
-- Upload documents via the frontend.
-- The backend processes each document through classification, agent extraction, and action routing.
-- Results are displayed in the frontend UI.
+Activate environment
 
-## Dockerization
+```
+venv\Scripts\activate
+```
 
-The project supports Docker for simplified deployment of both backend and frontend.
+Install dependencies
 
-## Architecture Diagram
+```
+pip install -r requirements.txt
+```
 
-## Architecture Diagram
+Set environment variables in `.env`
+
+Run the server
+
+```
+uvicorn main:app --reload
+```
+
+---
+
+# Usage
+
+1. Upload documents through the frontend UI.
+
+2. The backend pipeline performs:
+
+* Classification
+* Agent-based extraction
+* Action routing
+
+3. Results are returned and displayed in the frontend dashboard.
+
+---
+
+# Dockerization
+
+The project supports **Docker deployment** for both frontend and backend services.
+
+Benefits:
+
+* Easy environment setup
+* Consistent deployment
+* Simplified containerized architecture
+
+---
+
+# Architecture Diagram
 
 ```mermaid
 flowchart TD
@@ -116,53 +281,151 @@ flowchart TD
     K --> L[Frontend UI Shows Results & Trace]
 ```
 
-> **Note:** The Classifier Agent leverages the Gemini API (LLM) for advanced document classification and intent detection.
+> The **Classifier Agent leverages the Gemini API** for intelligent document classification.
 
+---
 
-## How It Works!
+# How It Works
 
-1. **Document Upload:**  
-   The user uploads a file (Email, JSON, or PDF) via the frontend UI.
+### 1. Document Upload
 
-2. **Classifier Agent:**  
-   - Detects the document’s format and business intent using a combination of schema matching, Gemini LLM prompting, and fallback rules.
-   - Sends a prompt with few-shot examples to the Gemini API for robust intent detection.
-   - Passes routing metadata to the memory store and determines which specialized agent should process the file.
+The user uploads:
 
+* Email
+* JSON
+* PDF
 
-3. **Specialized Agents:**
-   - **Email Agent:**  
-     Extracts sender, subject, urgency, tone, and issue/request from emails. Determines if escalation or routine action is needed.
-   - **JSON Agent:**  
-     Validates the structure of incoming JSON files, distinguishes between Invoice and RFQ schemas, and flags anomalies (e.g., missing fields, type errors).
-   - **PDF Agent:**  
-     Extracts text and line-item data from PDFs, flags invoices over a threshold, and detects compliance mentions (e.g., “GDPR”, “FDA”).
+via the frontend UI.
 
-4. **Action Router:**  
-   - Based on the agent output, triggers follow-up actions such as escalating to CRM, flagging compliance, or logging an alert, via simulated REST API calls.
-   - Includes retry logic for reliability.
+---
 
-5. **Memory Store & File Logging:**  
-   - All agent decisions, extracted fields, and actions are logged in Redis for traceability.
-   - Additionally, a file-based log (`logs/processing.log`) records all processing events and errors for audit and debugging.
-   - All agent decisions and actions are logged both in Redis (for fast retrieval and chaining) and in a persistent log file at logs/processing.log for audit, debugging, and compliance purposes.
+### 2. Classifier Agent
 
-6. **Frontend Display:**  
-   - The frontend fetches and displays all results, including classification, agent outputs, action router status, and full trace logs, in a recruiter-friendly UI.
+Responsibilities:
 
+* Detect document format
+* Identify business intent
 
-## Sample Screenshots
+Uses:
 
-![UI Screenshot](./docs/Landing_page.png)
-![Upload Section](./docs/Input_location.png)
-![About Developer Section](./docs/Abt_Developer_Section.png)
-![Result](./docs/Output_Result.png)
-![Action Router Output](./docs/Action_Router_op.png)
+* Schema matching
+* Gemini LLM prompting
+* Fallback rules
 
-## License
+Routing metadata is stored in the **memory store**.
+
+---
+
+### 3. Specialized Agents
+
+**Email Agent**
+
+Extracts:
+
+* Sender
+* Subject
+* Urgency
+* Tone
+* Issue or request
+
+Determines whether escalation is required.
+
+---
+
+**JSON Agent**
+
+Responsibilities:
+
+* Schema validation
+* Detect Invoice or RFQ structures
+* Flag anomalies such as missing fields or incorrect data types.
+
+---
+
+**PDF Agent**
+
+Extracts:
+
+* Invoice details
+* Line item information
+* Compliance mentions such as GDPR or FDA.
+
+Flags invoices above defined thresholds.
+
+---
+
+### 4. Action Router
+
+Based on agent outputs, the system triggers actions:
+
+* CRM escalation
+* Compliance flagging
+* Risk alerts
+* Acceptance workflows
+
+Includes **retry logic** for reliability.
+
+---
+
+### 5. Memory Store and Logging
+
+All events are logged in two places:
+
+**Redis**
+
+* Fast retrieval
+* Agent chaining
+* Workflow memory
+
+**File Logs**
+
+```
+logs/processing.log
+```
+
+Used for:
+
+* Debugging
+* Audit tracking
+* Compliance records
+
+---
+
+### 6. Frontend Visualization
+
+The UI displays:
+
+* Document classification
+* Agent outputs
+* Action router responses
+* Full trace logs
+
+Designed to clearly show the **entire multi-agent pipeline**.
+
+---
+
+# Sample Screenshots
+
+| Landing Page                 | Upload Section                 |
+| ---------------------------- | ------------------------------ |
+| ![](./docs/Landing_page.png) | ![](./docs/Input_location.png) |
+
+| About Developer                       | Result Output                 |
+| ------------------------------------- | ----------------------------- |
+| ![](./docs/Abt_Developer_Section.png) | ![](./docs/Output_Result.png) |
+
+| Action Router Output             |
+| -------------------------------- |
+| ![](./docs/Action_Router_op.png) |
+
+---
+
+# License
 
 MIT
 
-## Author
+---
 
-Pratik Dash
+# Author
+
+**Pratik Dash**
